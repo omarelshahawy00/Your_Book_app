@@ -1,4 +1,5 @@
-import 'package:booking_app/Features/splash/presentation/view_model/views/splash_view.dart';
+import '../Features/splash/presentation/view_model/views/splash_view.dart';
+import 'package:booking_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,9 @@ class YourBook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: kPrimaryColor),
       home: const SplashView(),
     );
   }
