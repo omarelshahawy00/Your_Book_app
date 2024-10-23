@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class SlidingItem extends StatelessWidget {
   const SlidingItem({super.key});
-
+//for sliding list view
   @override
   Widget build(BuildContext context) {
     return SizedBox(
