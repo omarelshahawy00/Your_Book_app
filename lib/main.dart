@@ -1,4 +1,4 @@
-import '../Features/splash/presentation/view_model/views/splash_view.dart';
+import 'Features/splash/views/splash_view.dart';
 import 'package:booking_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
