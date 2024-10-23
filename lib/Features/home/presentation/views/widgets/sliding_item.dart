@@ -7,7 +7,6 @@ class SlidingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
       child: AspectRatio(
         aspectRatio: 2 / 3,
         child: Container(
