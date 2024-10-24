@@ -1,7 +1,8 @@
+import 'package:booking_app/Features/home/presentation/views/widgets/best_seller_list_view_item.dart';
 import 'package:booking_app/Features/home/presentation/views/widgets/custom_app_bar.dart';
-import 'package:booking_app/core/utils/assets.dart';
 import 'package:booking_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'list_view_items.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -35,34 +36,6 @@ class HomeViewBody extends StatelessWidget {
           BestSellerListViewItem(),
         ],
       ),
-    );
-  }
-}
-
-class BestSellerListViewItem extends StatelessWidget {
-  const BestSellerListViewItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          height: 130,
-          child: AspectRatio(
-            aspectRatio: 1.9 / 3,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage(AssetsData.testImg),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-        ),
-        const Text('this is book name'),
-      ],
     );
   }
 }
