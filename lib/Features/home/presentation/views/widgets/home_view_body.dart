@@ -2,7 +2,6 @@ import 'package:booking_app/Features/home/presentation/views/widgets/best_seller
 import 'package:booking_app/Features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:booking_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'list_view_items.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -10,32 +9,47 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 15, right: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomAppBar(),
-          SizedBox(
-            height: 30,
+    return CustomScrollView(
+      slivers: [
+        const SliverToBoxAdapter(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: CustomAppBar(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ListViewItems(),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Text(
+                  'Best Seller',
+                  style: Styles.textStyle18,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
-          ListViewItems(),
-          SizedBox(
-            height: 30,
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: BestSellerListViewItem(),
+              );
+            },
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 7),
-            child: Text(
-              'Best Seller',
-              style: Styles.textStyle18,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          BestSellerListViewItem(),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
