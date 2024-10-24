@@ -12,7 +12,6 @@ class SlidingItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Colors.amber,
             image: const DecorationImage(
               image: AssetImage(AssetsData.testImg),
               fit: BoxFit.fill,
