@@ -2,8 +2,10 @@ import 'package:booking_app/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 
 class SlidingItem extends StatelessWidget {
-  const SlidingItem({super.key});
-//for sliding list view
+  const SlidingItem({super.key, this.hasIconButton = false});
+
+  final bool hasIconButton;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,13 +21,15 @@ class SlidingItem extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 70, top: 150),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.play_arrow,
-                size: 30,
-              ),
-            ),
+            child: hasIconButton
+                ? IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.play_arrow,
+                      size: 30,
+                    ),
+                  )
+                : null,
           ),
         ),
       ),

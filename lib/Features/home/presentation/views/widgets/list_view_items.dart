@@ -13,7 +13,9 @@ class ListViewItems extends StatelessWidget {
         itemBuilder: (context, index) {
           return const Padding(
             padding: EdgeInsets.symmetric(horizontal: 7),
-            child: SlidingItem(),
+            child: SlidingItem(
+              hasIconButton: true,
+            ),
           );
         },
       ),
