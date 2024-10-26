@@ -22,6 +22,9 @@ class BookDetailsSectiion extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(
+          height: 20,
+        ),
         const Text(
           'Spider-Man-3',
           maxLines: 2,
