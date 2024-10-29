@@ -3,6 +3,7 @@ import 'package:booking_app/Features/home/data/repos/home_repo.dart';
 import 'package:booking_app/core/errors/failure.dart';
 import 'package:booking_app/core/utils/api_service.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
@@ -22,6 +23,9 @@ class HomeRepoImpl implements HomeRepo {
 
       return right(books);
     } on Exception catch (e) {
+      if (e is DioException) {
+        return left(ServerFailer.fromDioError(e));
+      }
       return left(ServerFailer(e.toString()));
     }
   }
