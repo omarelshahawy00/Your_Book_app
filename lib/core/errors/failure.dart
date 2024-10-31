@@ -10,6 +10,11 @@ class ServerFailer extends Failure {
   ServerFailer(super.errMessage);
 
   factory ServerFailer.fromDioError(DioException dioError) {
+    print("Error Type: ${dioError.type}"); // Logs the DioException type
+    print("Error Message: ${dioError.message}"); // Logs the error message
+    print(
+        "Error Response: ${dioError.response?.data}"); // Logs the error response if available
+
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
         return ServerFailer('Connection timeout with ApiServer');
@@ -18,25 +23,28 @@ class ServerFailer extends Failure {
       case DioExceptionType.receiveTimeout:
         return ServerFailer('Receive timeout with ApiServer');
       case DioExceptionType.badCertificate:
-        return ServerFailer('Bad sertificate');
+        return ServerFailer('Bad certificate');
       case DioExceptionType.badResponse:
-        ServerFailer.fromResponse(
-            dioError.response!.statusCode!, dioError.response!.data);
+        return ServerFailer.fromResponse(
+            dioError.response?.statusCode ?? 0, dioError.response?.data);
       case DioExceptionType.cancel:
         return ServerFailer('Request to ApiServer was canceled');
       case DioExceptionType.connectionError:
         return ServerFailer(
-            'There is an error while trying to make connection');
+            'There is an error while trying to make a connection');
       case DioExceptionType.unknown:
-        if (dioError.message!.contains('SocketExeption')) {
+        // Check if it's a socket error or another unknown issue
+        if (dioError.message?.contains('SocketException') ?? false) {
           return ServerFailer('No internet connection');
         }
-        return ServerFailer('Unexpected Error, please try again!');
+        // Return detailed message for other unknown cases
+        return ServerFailer(
+            dioError.message ?? 'Unexpected error, please try again!');
       default:
-        return ServerFailer('Oops there was an error try again later');
+        return ServerFailer('Oops, there was an error. Try again later');
     }
-    return ServerFailer('errMessage');
   }
+
   factory ServerFailer.fromResponse(int statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 404) {
       return ServerFailer(response['error']['message']);

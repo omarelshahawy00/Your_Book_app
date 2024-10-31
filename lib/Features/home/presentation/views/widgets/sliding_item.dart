@@ -1,11 +1,11 @@
-import 'package:booking_app/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 
 class SlidingItem extends StatelessWidget {
-  const SlidingItem({super.key, this.hasIconButton = false});
+  const SlidingItem(
+      {super.key, this.hasIconButton = false, required this.urlImage});
 
   final bool hasIconButton;
-
+  final String urlImage;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,8 +14,8 @@ class SlidingItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            image: const DecorationImage(
-              image: AssetImage(AssetsData.testImg),
+            image: DecorationImage(
+              image: NetworkImage(urlImage),
               fit: BoxFit.fill,
             ),
           ),

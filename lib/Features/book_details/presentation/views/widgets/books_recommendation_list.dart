@@ -27,6 +27,8 @@ class BooksRecommendationList extends StatelessWidget {
                 return const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: SlidingItem(
+                    urlImage:
+                        'https://hoppingfeet.com/wp-content/uploads/2018/11/IMG_E9565-scaled.jpg',
                     hasIconButton: false,
                   ),
                 );

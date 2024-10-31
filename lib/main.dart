@@ -1,26 +1,33 @@
 import 'package:booking_app/Features/home/data/repos/home_repo_impl.dart';
+import 'package:booking_app/Features/home/presentation/manager/best_seller_books_cubit/cubit/best_seller_books_cubit.dart';
 import 'package:booking_app/Features/home/presentation/manager/sliding_books_cubit/sliding_books_cubit.dart';
 import 'package:booking_app/constants.dart';
-import 'package:booking_app/core/utils/api_service.dart';
 import 'package:booking_app/core/utils/app_router.dart';
-import 'package:dio/dio.dart';
+import 'package:booking_app/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(YourBook());
+  setup();
+  runApp(const YourBook());
 }
 
 class YourBook extends StatelessWidget {
-  YourBook({super.key});
-  final homeRepo = HomeRepoImpl(ApiService(Dio()));
+  const YourBook({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SlidingBooksCubit(homeRepo),
+          create: (context) =>
+              SlidingBooksCubit(getIt.get<HomeRepoImpl>())..fetchSlidingBooks(),
+        ),
+        BlocProvider(
+          create: (context) => BestSellerBooksCubit(
+            getIt.get<HomeRepoImpl>(),
+          ),
         ),
       ],
       child: MaterialApp.router(

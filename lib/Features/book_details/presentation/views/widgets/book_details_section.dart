@@ -17,6 +17,8 @@ class BookDetailsSectiion extends StatelessWidget {
             height: 250,
             child: Center(
               child: SlidingItem(
+                urlImage:
+                    'https://hoppingfeet.com/wp-content/uploads/2018/11/IMG_E9565-scaled.jpg',
                 hasIconButton: false,
               ),
             ),
