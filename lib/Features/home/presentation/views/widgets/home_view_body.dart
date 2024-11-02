@@ -1,4 +1,4 @@
-import 'package:booking_app/Features/home/presentation/views/widgets/best_seller_list_view_item.dart';
+import 'package:booking_app/Features/home/presentation/views/widgets/best_seller_list_view.dart';
 import 'package:booking_app/Features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:booking_app/core/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +9,10 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return const CustomScrollView(
+      physics: BouncingScrollPhysics(),
       slivers: [
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,7 +30,7 @@ class HomeViewBody extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  'Best Seller',
+                  'Populer Books',
                   style: Styles.textStyle18,
                 ),
               ),
@@ -39,16 +40,12 @@ class HomeViewBody extends StatelessWidget {
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                child: BestSellerListViewItem(),
-              );
-            },
+        SliverFillRemaining(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: BestSellerListView(),
           ),
-        ),
+        )
       ],
     );
   }

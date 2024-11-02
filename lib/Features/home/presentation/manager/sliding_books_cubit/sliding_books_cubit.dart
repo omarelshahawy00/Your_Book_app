@@ -10,15 +10,12 @@ class SlidingBooksCubit extends Cubit<SlidingBooksState> {
 
   final HomeRepo homeRepo;
   Future<void> fetchSlidingBooks() async {
-    print("Fetching sliding books...");
     var result = await homeRepo.fetchSlidingBooks();
     result.fold(
       (failure) {
-        print("Fetch failed: ${failure.errMessage}");
         emit(SlidingBooksFailure(failure.errMessage));
       },
       (books) {
-        print("Fetch successful, books retrieved: ${books.length}");
         emit(SlidingBooksSuccess(books));
       },
     );

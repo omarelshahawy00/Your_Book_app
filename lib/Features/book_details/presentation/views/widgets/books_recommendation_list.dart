@@ -1,6 +1,10 @@
+import 'package:booking_app/Features/book_details/presentation/manager/book_details_section/book_details_section_cubit.dart';
 import 'package:booking_app/Features/home/presentation/views/widgets/sliding_item.dart';
 import 'package:booking_app/core/utils/styles.dart';
+import 'package:booking_app/core/widgets/custom_error.dart';
+import 'package:booking_app/core/widgets/custom_loading_indecator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BooksRecommendationList extends StatelessWidget {
   const BooksRecommendationList({super.key});
@@ -21,17 +25,30 @@ class BooksRecommendationList extends StatelessWidget {
           ),
           SizedBox(
             height: 112,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: SlidingItem(
-                    urlImage:
-                        'https://hoppingfeet.com/wp-content/uploads/2018/11/IMG_E9565-scaled.jpg',
-                    hasIconButton: false,
-                  ),
-                );
+            child:
+                BlocBuilder<BookDetailsSectionCubit, BookDetailsSectionState>(
+              builder: (context, state) {
+                if (state is BookDetailsSectionSuccess) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.books.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: SlidingItem(
+                          urlImage: state.books[index].volumeInfo.imageLinks
+                                  ?.thumbnail ??
+                              '',
+                          hasIconButton: false,
+                        ),
+                      );
+                    },
+                  );
+                } else if (state is BookDetailsSectionFailure) {
+                  return CustomError(errMessage: state.errMessage);
+                } else {
+                  return const CustomLoadingIndecator();
+                }
               },
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SlidingItem extends StatelessWidget {
@@ -8,28 +9,20 @@ class SlidingItem extends StatelessWidget {
   final String urlImage;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: AspectRatio(
-        aspectRatio: 2 / 3,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: DecorationImage(
-              image: NetworkImage(urlImage),
-              fit: BoxFit.fill,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: SizedBox(
+        child: AspectRatio(
+          aspectRatio: 2 / 3,
+          child: CachedNetworkImage(
+            placeholder: (context, url) => Center(
+              child: Image.asset(
+                'assets/images/loading2.gif',
+              ),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 70, top: 150),
-            child: hasIconButton
-                ? IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.play_arrow,
-                      size: 30,
-                    ),
-                  )
-                : null,
+            imageUrl: urlImage,
+            fit: BoxFit.fill,
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
       ),

@@ -1,4 +1,3 @@
-import 'package:booking_app/Features/home/presentation/views/widgets/best_seller_list_view_item.dart';
 import 'package:flutter/material.dart';
 
 class SearchResultList extends StatelessWidget {
@@ -11,10 +10,12 @@ class SearchResultList extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemCount: 20,
         itemBuilder: (context, index) {
-          return const Padding(
-            padding: EdgeInsets.only(top: 7, bottom: 7, left: 30),
-            child: BestSellerListViewItem(),
-          );
+          return null;
+
+          // return const Padding(
+          //   padding: EdgeInsets.only(top: 7, bottom: 7, left: 30),
+          //   child: BestSellerListViewItem(),
+          // );
         },
       ),
     );

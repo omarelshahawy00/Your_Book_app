@@ -1,9 +1,11 @@
 import 'package:booking_app/Features/home/presentation/manager/sliding_books_cubit/sliding_books_cubit.dart';
 import 'package:booking_app/Features/home/presentation/views/widgets/sliding_item.dart';
+import 'package:booking_app/core/utils/app_router.dart';
 import 'package:booking_app/core/widgets/custom_error.dart';
 import 'package:booking_app/core/widgets/custom_loading_indecator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ListViewItems extends StatelessWidget {
   const ListViewItems({super.key});
@@ -21,10 +23,19 @@ class ListViewItems extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 7),
-                  child: SlidingItem(
-                    urlImage:
-                        state.books[index].volumeInfo.imageLinks.thumbnail,
-                    hasIconButton: true,
+                  child: GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push(
+                        AppRouter.kBookDetailsView,
+                        extra: state.books[index],
+                      );
+                    },
+                    child: SlidingItem(
+                      urlImage:
+                          state.books[index].volumeInfo.imageLinks?.thumbnail ??
+                              '',
+                      hasIconButton: true,
+                    ),
                   ),
                 );
               },
@@ -33,7 +44,13 @@ class ListViewItems extends StatelessWidget {
         } else if (state is SlidingBooksFailure) {
           return CustomError(errMessage: state.errMessage);
         } else {
-          return const CustomLoadingIndecator();
+          return const Center(
+            child: SizedBox(
+              height: 250,
+              width: 150,
+              child: CustomLoadingIndecator(),
+            ),
+          );
         }
       },
     );
