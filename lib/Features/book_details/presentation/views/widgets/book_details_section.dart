@@ -27,11 +27,15 @@ class BookDetailsSectiion extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Text(
-          book.volumeInfo.title ?? 'No book Title',
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: Styles.textStyle30,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            book.volumeInfo.title ?? 'No book Title',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Styles.textStyle30,
+            textAlign: TextAlign.center,
+          ),
         ),
         Text(
           book.volumeInfo.authors?[0] ?? 'Author not found',
@@ -45,13 +49,17 @@ class BookDetailsSectiion extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const BookRatingItem(
+        BookRatingItem(
+          avgRating: book.volumeInfo.averageRating?.round() ?? 0,
+          ratingCount: book.volumeInfo.ratingsCount?.round() ?? 0,
           mainAxisAlignment: MainAxisAlignment.center,
         ),
         const SizedBox(
           height: 40,
         ),
-        const FreePreviewItem(),
+        FreePreviewItem(
+          bookModel: book,
+        ),
       ],
     );
   }

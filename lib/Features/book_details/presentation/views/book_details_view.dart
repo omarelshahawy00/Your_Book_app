@@ -29,18 +29,6 @@ class _BookDetailsViewState extends State<BookDetailsView> {
         leadingWidth: 80,
         elevation: 0,
         backgroundColor: kPrimaryColor,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                size: 25,
-              ),
-            ),
-          ),
-        ],
       ),
       body: SafeArea(
         child: BookDetailsViewBody(bookModel: widget.bookModel),

@@ -18,6 +18,7 @@ class ListViewItems extends StatelessWidget {
           return SizedBox(
             height: 250,
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: state.books.length,
               itemBuilder: (context, index) {

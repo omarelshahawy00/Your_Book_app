@@ -63,7 +63,12 @@ class BestSellerListViewItem extends StatelessWidget {
                     const Spacer(
                       flex: 1,
                     ),
-                    const BookRatingItem(),
+                    BookRatingItem(
+                      avgRating:
+                          bookModel.volumeInfo.averageRating?.round() ?? 0,
+                      ratingCount:
+                          bookModel.volumeInfo.ratingsCount?.round() ?? 0,
+                    ),
                   ],
                 )
               ],
