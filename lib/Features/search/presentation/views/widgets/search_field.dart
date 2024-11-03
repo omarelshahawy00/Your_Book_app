@@ -7,6 +7,7 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (value) {},
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
