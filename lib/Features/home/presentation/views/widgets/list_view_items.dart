@@ -6,6 +6,7 @@ import 'package:booking_app/core/widgets/custom_loading_indecator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ListViewItems extends StatelessWidget {
   const ListViewItems({super.key});
@@ -15,31 +16,35 @@ class ListViewItems extends StatelessWidget {
     return BlocBuilder<SlidingBooksCubit, SlidingBooksState>(
       builder: (context, state) {
         if (state is SlidingBooksSuccess) {
-          return SizedBox(
-            height: 250,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemCount: state.books.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 7),
-                  child: GestureDetector(
-                    onTap: () {
-                      GoRouter.of(context).push(
-                        AppRouter.kBookDetailsView,
-                        extra: state.books[index],
-                      );
-                    },
-                    child: SlidingItem(
-                      urlImage:
-                          state.books[index].volumeInfo.imageLinks?.thumbnail ??
-                              '',
-                      hasIconButton: true,
-                    ),
+          return CarouselSlider.builder(
+            itemCount: state.books.length,
+            itemBuilder: (context, index, realIndex) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 7),
+                child: GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kBookDetailsView,
+                      extra: state.books[index],
+                    );
+                  },
+                  child: SlidingItem(
+                    urlImage:
+                        state.books[index].volumeInfo.imageLinks?.thumbnail ??
+                            '',
+                    hasIconButton: true,
                   ),
-                );
-              },
+                ),
+              );
+            },
+            options: CarouselOptions(
+              autoPlay: true, // Enable automatic sliding
+              autoPlayInterval:
+                  const Duration(seconds: 5), // Time between slides
+              autoPlayAnimationDuration:
+                  const Duration(milliseconds: 3000), // Animation duration
+              enlargeCenterPage: true, // Enlarge the current page
+              viewportFraction: .4, // Fraction of the viewport that is visible
             ),
           );
         } else if (state is SlidingBooksFailure) {

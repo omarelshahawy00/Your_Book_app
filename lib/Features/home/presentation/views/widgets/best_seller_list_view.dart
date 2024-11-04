@@ -13,23 +13,34 @@ class BestSellerListView extends StatelessWidget {
     return BlocBuilder<BestSellerBooksCubit, BestSellerBooksState>(
       builder: (context, state) {
         if (state is BestSellerBooksSuccess) {
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            itemCount: state.books.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: BestSellerListViewItem(
-                  bookModel: state.books[index],
-                ),
-              );
-            },
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: BestSellerListViewItem(
+                    bookModel: state.books[index],
+                  ),
+                );
+              },
+              childCount: state.books.length,
+            ),
           );
         } else if (state is BestSellerBooksFailure) {
-          return CustomError(errMessage: state.errMessage);
+          return SliverToBoxAdapter(
+            child: CustomError(errMessage: state.errMessage),
+          );
         } else {
-          return const CustomLoadingIndecator();
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: SizedBox(
+                height: 300,
+                width: 150,
+                child: CustomLoadingIndecator(),
+              ),
+            ),
+          );
         }
       },
     );
